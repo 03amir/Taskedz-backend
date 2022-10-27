@@ -50,5 +50,13 @@ router.delete("/delete/:toDeleteId", async (req, res) => {
     res.send(deleted);
   });
 
+router.post("/edit", async(req, res) => {
+  const toEditId = req.body.toEditId;
+  const editedValue = req.body.newValue;
+  const resp = await Todos.updateOne({_id:toEditId}, {$set : {body:editedValue}});
+  let allTodos = await Todos.find();
+  res.send(allTodos);
+})  
+
 
   module.exports = router;
